@@ -4,6 +4,9 @@ from pytube import Playlist,YouTube
 from concurrent.futures import as_completed, ThreadPoolExecutor
 import sys
 
+# rewrite it with asynio
+# DONE: capped the number of workers to number of urls fetched
+
 start=time()
 def is_playlist(og_url):
     return True if (og_url.__contains__("list")) else False
@@ -27,6 +30,7 @@ if(not is_playlist(arg_url)):
     sys.exit("Done.")
 print(f"link is a playlist")
 urls_list=get_playlist_urls(arg_url)
+num_workers=len(urls_list)
 # prints urls of the playlist
 #print("\n".join(urls_list))
 # TODO: too many lists
@@ -35,7 +39,7 @@ threads_s=list()
 titles=list()
 time_s=list()
 # TODO: figure out optimum number of threads
-with ThreadPoolExecutor(max_workers=10) as execc:
+with ThreadPoolExecutor(max_workers=num_workers) as execc:
     for link in urls_list:
         threads.append(execc.submit(get_title,link))
 for job in as_completed(threads):
@@ -43,7 +47,7 @@ for job in as_completed(threads):
     #print(job.result())
 # TODO: make a method for threading, you are repeating yourself, waiting for titles also is not good
 #threads=list()
-with ThreadPoolExecutor(max_workers=10) as exexc:
+with ThreadPoolExecutor(max_workers=num_workers) as exexc:
     for link in urls_list:
         threads_s.append(exexc.submit(get_length,link))
 for job in as_completed(threads_s):
