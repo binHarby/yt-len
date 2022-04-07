@@ -1,0 +1,29 @@
+#!/usr/bin/python
+from time import time 
+from pytube import Playlist,YouTube
+from concurrent.futures import as_completed, ThreadPoolExecutor
+import sys
+
+start=time()
+def get_length(lnk):
+    vid_len= YouTube(lnk).length
+    return vid_len
+
+def is_playlist(og_url):
+    return True if (og_url.__contains__("list")) else False
+def get_length(lnk):
+   return YouTube(lnk).length 
+def get_title(lnk):
+    return YouTube(lnk).title
+def print_fmt(ss):
+    m,s = divmod(ss,60)
+    h,m = divmod(m,60)
+    print(f'{h:d}:{m:02d}:{s:02d}')
+    
+arg_url=str(sys.argv[1])
+if(not is_playlist(arg_url)):
+    print(get_title(arg_url))
+    print_fmt(get_length(arg_url))
+    sys.exit("Done.")
+print(f"is_playlist={is_playlist}")
+    
