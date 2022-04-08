@@ -1,6 +1,6 @@
 pkgbase = yt-len
 	pkgdesc = Simple Python program, get video/playlist length and titles
-	pkgver = 0.01
+	pkgver = 0.1
 	pkgrel = 1
 	url = https://github.com/binHarby/yt-len
 	arch = x86_64
@@ -8,11 +8,11 @@ pkgbase = yt-len
 	arch = armv7h
 	arch = armv6h
 	arch = aarch64
-	license = GPL
+	license = MIT
 	makedepends = git
 	depends = python-pytube
 	provides = yt-len
-	conflicts = yt-len
 	source = git+https://github.com/binHarby/yt-len
+	md5sums = SKIP
 
 pkgname = yt-len
