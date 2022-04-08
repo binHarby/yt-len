@@ -3,37 +3,29 @@
 # NOTE: Please fill out the license field for your package! If it is unknown,
 # then please put 'unknown'.
 
-# Maintainer: Abdulla Alameri <binharby1@gmail.com>
+# Maintainer: BinHarby <binharby1@gmail.com>
 pkgname=yt-len
-pkgver=0.01
+pkgver=0.1
 pkgrel=1
 pkgdesc="Simple Python program, get video/playlist length and titles"
 arch=('x86_64' 'i686' 'armv7h' 'armv6h' 'aarch64')
 url="https://github.com/binHarby/yt-len"
 license=('GPL')
-depends=()
+depends=('python-pytube')
 makedepends=(git)
 provides=(yt-len)
-conflicts=(yt-len)
 source=(git+$url)
 md5sums=('SKIP')
 
+pkgver() {
+	cd ${_pkgname}
+	printf "0.1.r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
 prepare() {
 	if [ -e "$srcdir/$pkgname-$pkgver" ]
 	then
 		rm -r "$srcdir/$pkgname-$pkgver"
 	fi
-	if [ -e "$srcdir/python-pytube" ]
-	then
-		continue
-	else
-		cd $srcdir
-		git clone https://aur.archlinux.org/python-pytube
-	fi
-	cd python-pytube
-	makepkg -si --asdeps 
-	cd $srcdir 
-	rm -rf python-pytube
 	mkdir "$srcdir/$pkgname-$pkgver" 
 	mv "$srcdir/yt-len/yt-len" "$srcdir/$pkgname-$pkgver"
 }
