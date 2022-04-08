@@ -1,7 +1,7 @@
 #!/bin/sh
 
 echo "Installing yt-len dependancies ===>"
-pip install -r requirements.txt --user
+pip install -r ../requirements.txt --user
 
 echo "Installing yt-len ===>"
 sudo cp dist/yt-len /usr/bin/yt-len
